@@ -14,6 +14,9 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(clerkMiddleware());
 
-//
+// routers
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/expenses", expenseRouter);
+app.use("/api/v1/categories", categoryRouter);
 
 export default app;
