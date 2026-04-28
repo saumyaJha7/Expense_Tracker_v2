@@ -1,7 +1,10 @@
 import "dotenv/config";
-import express from "express";
-import { clerkMiddleware, getAuth } from "@clerk/express";
+import express, { urlencoded } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import userRouter from "./routers/user.router.js";
+import expenseRouter from "./routers/expense.router.js";
+import categoryRouter from "./routers/category.router.js";
 
 const app = express();
 
@@ -10,9 +13,9 @@ app.use(
     origin: process.env.CORS_ORIGIN,
   }),
 );
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(clerkMiddleware());
+app.use(express.json()); // for parsing json ( serialisation and deserialization )
+app.use(cookieParser()); // for parsing cookies
+app.use(urlencoded({ extended: true })); // for form data
 
 // routers
 app.use("/api/v1/users", userRouter);
